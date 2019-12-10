@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import androidx.work.WorkManager
+import com.mccorby.openmined.worker.BuildConfig
 import com.mccorby.openmined.worker.R
 import com.mccorby.openmined.worker.datasource.SyftWebSocketDataSource
 import com.mccorby.openmined.worker.domain.SyftOperand
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     // TODO Inject using Kodein or another DI framework
     private fun injectDependencies() {
         val clientId = "Android-${System.currentTimeMillis()}"
-        val webSocketUrl = "http://10.0.2.2:5000"
+        val webSocketUrl = BuildConfig.websocketUrl
         val syftDataSource = SyftWebSocketDataSource(webSocketUrl, clientId)
         val syftRepository = SyftRepository(syftDataSource)
         val mlFramework = DL4JFramework()

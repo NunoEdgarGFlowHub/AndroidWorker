@@ -12,11 +12,10 @@ The Android Worker is an app that connects to a PySyft worker and performs the o
 
 * Start the socket server
   * There is an example provided in the code of PyGrid: [`socketio_server_demo.py`](https://github.com/OpenMined/PyGrid/blob/dev/examples/android/socketio_server_demo.py)
+* Edit the file `local_connection.properties` in the Android project to match the IP address of the machine running the socket server.
+  * If using the emulator, this address should be `10.0.2.2`
 * Start the Android application
-  * If you're running the application on a physical device (instead of the Android emulator):
-    * Edit the IP address in [`MainActivity.kt`](https://github.com/OpenMined/AndroidWorker/blob/dev/app/src/main/java/com/mccorby/openmined/worker/ui/MainActivity.kt#L39) to match the IP address of the machine running the socket server
-    * Make the same edit to the IP address in [`network_security_config.xml`](https://github.com/OpenMined/AndroidWorker/blob/dev/app/src/main/res/xml/network_security_config.xml#L5)
-* Press the "Connect" button in the Android app    
+* Press the "Connect" button in the Android app
 * Start a Jupyter notebook and create a `WebsocketIOClientWorker` object.
   * Note that you need to provide strategies for serialization and compression
   * See the example [`Socket Bob.ipynb`](https://github.com/OpenMined/PyGrid/blob/dev/examples/android/Socket%20Bob.ipynb)

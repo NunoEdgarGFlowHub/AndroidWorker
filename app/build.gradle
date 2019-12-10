@@ -18,6 +18,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         
         multiDexEnabled true
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local_connection.properties").newDataInputStream())
+
+        buildConfigField "String", "websocketUrl", properties.getProperty("websocket_url", "")
     }
     buildTypes {
         release {

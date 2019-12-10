@@ -31,9 +31,15 @@ class MainViewModel(
 
     fun initiateCommunication() {
         val connectDisposable = connectUseCase.execute()
+            .doOnError {
+                viewState.postValue("Error connecting to socket.\n" +
+                        "Did you set websocket_url in local_connection.properties file?\n" +
+                        "Check also that the websocket is up and running")
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
+
         compositeDisposable.add(connectDisposable)
 
         // TODO Ideally we should start listening to message when connectUseCase completes
@@ -49,6 +55,11 @@ class MainViewModel(
 
         val statusDisposable = syftRepository.onStatusChange()
             .map { viewState.postValue(it) }
+            .doOnError {
+                viewState.postValue("Error connecting to socket.\n" +
+                        "Did you set websocket_url in local_connection.properties file?\n" +
+                        "Check also that the websocket is up and running")
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
