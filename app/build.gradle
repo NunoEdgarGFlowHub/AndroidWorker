@@ -6,6 +6,13 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'checkstyle'
 
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
 android {
     compileSdkVersion Versions.compileSdk
     defaultConfig {
@@ -28,6 +35,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "framework"
+    productFlavors {
+        dl4j {
+
+        }
+        tfLite {
+
         }
     }
 
@@ -74,6 +91,11 @@ dependencies {
     implementation MainApplicationDependencies.archComponentLifeCycleExtensions
     implementation MainApplicationDependencies.archComponentLifeCycleViewModel
 
+    implementation MainApplicationDependencies.dagger
+    kapt MainApplicationDependencies.daggerCompiler
+    implementation MainApplicationDependencies.assistedInjectAnnotations
+    kapt MainApplicationDependencies.assistedInjectProcessor
+
     // Data source dependencies
     implementation (DataSourceDependencies.socketIO) {
         // excluding org.json which is provided by Android
@@ -87,40 +109,40 @@ dependencies {
     implementation ToolsDependencies.npy
 
     // DL4J
-    implementation (DL4JDependencies.dl4j) {
+    dl4jImplementation (DL4JDependencies.dl4j) {
         exclude group: 'org.bytedeco', module: 'opencv-platform'
         exclude group: 'org.bytedeco', module: 'leptonica-platform'
         exclude group: 'org.bytedeco', module: 'hdf5-platform'
         exclude group: 'org.nd4j', module: 'nd4j-base64'
     }
-    implementation DL4JDependencies.nd4jNative
-    implementation DL4JDependencies.nd4jNativeArm
-    implementation DL4JDependencies.nd4jNativeArm64
-    implementation DL4JDependencies.nd4jNativeX86
-    implementation DL4JDependencies.nd4jNativeX86_64
+    dl4jImplementation DL4JDependencies.nd4jNative
+    dl4jImplementation DL4JDependencies.nd4jNativeArm
+    dl4jImplementation DL4JDependencies.nd4jNativeArm64
+    dl4jImplementation DL4JDependencies.nd4jNativeX86
+    dl4jImplementation DL4JDependencies.nd4jNativeX86_64
 
-    implementation DL4JDependencies.openblas
-    implementation DL4JDependencies.openblasAndroidArm
-    implementation DL4JDependencies.openblasAndroidArm64
-    implementation DL4JDependencies.openblasAndroidX86
-    implementation DL4JDependencies.openblasAndroidX86_64
+    dl4jImplementation DL4JDependencies.openblas
+    dl4jImplementation DL4JDependencies.openblasAndroidArm
+    dl4jImplementation DL4JDependencies.openblasAndroidArm64
+    dl4jImplementation DL4JDependencies.openblasAndroidX86
+    dl4jImplementation DL4JDependencies.openblasAndroidX86_64
 
-    implementation DL4JDependencies.opencv
-    implementation DL4JDependencies.opencvAndroidArm
-    implementation DL4JDependencies.opencvAndroidArm64
-    implementation DL4JDependencies.opencvAndroidX86
-    implementation DL4JDependencies.opencvAndroidX86_64
+    dl4jImplementation DL4JDependencies.opencv
+    dl4jImplementation DL4JDependencies.opencvAndroidArm
+    dl4jImplementation DL4JDependencies.opencvAndroidArm64
+    dl4jImplementation DL4JDependencies.opencvAndroidX86
+    dl4jImplementation DL4JDependencies.opencvAndroidX86_64
 
-    implementation DL4JDependencies.leptonica
-    implementation DL4JDependencies.leptonicaAndroidArm
-    implementation DL4JDependencies.leptonicaAndroidArm64
-    implementation DL4JDependencies.leptonicaAndroidX86
-    implementation DL4JDependencies.leptonicaAndroidX86_64
+    dl4jImplementation DL4JDependencies.leptonica
+    dl4jImplementation DL4JDependencies.leptonicaAndroidArm
+    dl4jImplementation DL4JDependencies.leptonicaAndroidArm64
+    dl4jImplementation DL4JDependencies.leptonicaAndroidX86
+    dl4jImplementation DL4JDependencies.leptonicaAndroidX86_64
 
-    implementation DL4JDependencies.gson
-    annotationProcessor DL4JDependencies.lombok
+    dl4jImplementation DL4JDependencies.gson
+    dl4jAnnotationProcessor DL4JDependencies.lombok
 
-    implementation 'com.google.code.findbugs:annotations:3.0.1', {
+    dl4jImplementation 'com.google.code.findbugs:annotations:3.0.1', {
         exclude module: 'jsr305'
         exclude module: 'jcip-annotations'
     }
@@ -141,6 +163,7 @@ dependencies {
 
 configurations {
     ktlint
+    dl4jImplementation
 }
 
 task ktlint(type: JavaExec, group: "verification") {

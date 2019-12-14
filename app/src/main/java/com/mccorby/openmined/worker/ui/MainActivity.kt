@@ -6,26 +6,26 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import androidx.work.WorkManager
 import com.mccorby.openmined.worker.BuildConfig
+import com.mccorby.openmined.worker.OpenMinedApplication
 import com.mccorby.openmined.worker.R
 import com.mccorby.openmined.worker.datasource.SyftWebSocketDataSource
-import com.mccorby.openmined.worker.domain.SyftOperand
+import com.mccorby.openmined.worker.domain.MLFramework
 import com.mccorby.openmined.worker.domain.SyftRepository
 import com.mccorby.openmined.worker.domain.SyftResult
-import com.mccorby.openmined.worker.domain.usecase.ConnectUseCase
-import com.mccorby.openmined.worker.domain.usecase.DeleteObjectUseCase
-import com.mccorby.openmined.worker.domain.usecase.ExecuteCommandUseCase
-import com.mccorby.openmined.worker.domain.usecase.GetObjectUseCase
-import com.mccorby.openmined.worker.domain.usecase.ObserveMessagesUseCase
-import com.mccorby.openmined.worker.domain.usecase.SetObjectUseCase
-import com.mccorby.openmined.worker.framework.DL4JFramework
-import com.mccorby.openmined.worker.framework.toINDArray
+import com.mccorby.openmined.worker.domain.usecase.*
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var mlFramework: MLFramework
 
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Make Dagger instantiate @Inject fields in LoginActivity
+        (applicationContext as OpenMinedApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         val webSocketUrl = BuildConfig.websocketUrl
         val syftDataSource = SyftWebSocketDataSource(webSocketUrl, clientId)
         val syftRepository = SyftRepository(syftDataSource)
-        val mlFramework = DL4JFramework()
         val setObjectUseCase = SetObjectUseCase(syftRepository)
         val executeCommandUseCase = ExecuteCommandUseCase(syftRepository, mlFramework)
         val getObjectUseCase = GetObjectUseCase(syftRepository)
@@ -56,15 +55,21 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(
             this,
-            MainViewModelFactory(observeMessagesUseCase, connectUseCase, syftRepository, WorkManager.getInstance())
+            MainViewModelFactory(
+                observeMessagesUseCase,
+                connectUseCase,
+                syftRepository,
+                WorkManager.getInstance()
+            )
         ).get(MainViewModel::class.java)
 
         viewModel.syftMessageState.observe(this, Observer<SyftResult> {
             log_area.append(it.toString() + "\n")
         })
-        viewModel.syftTensorState.observe(this, Observer<SyftOperand.SyftTensor> {
-            log_area.append(it!!.toINDArray().toString() + "\n")
-        })
+        // TODO This should map to a presentation object instead of a concrete type of a framework
+//        viewModel.syftTensorState.observe(this, Observer<SyftOperand.SyftTensor> {
+//            log_area.append(it!!.toINDArray().toString() + "\n")
+//        })
         viewModel.viewState.observe(this, Observer {
             log_area.append(it + "\n")
         })

@@ -43,6 +43,8 @@ object Versions {
     const val npy = "0.3.3"
     const val rxJava = "2.2.7"
     const val rxAndroid = "2.1.1"
+    const val dagger = "2.21"
+    const val assistedInject = "0.5.0"
 
     // Test
     const val junit = "4.12"
@@ -66,6 +68,10 @@ object MainApplicationDependencies {
     const val archComponentLifeCycleExtensions = "android.arch.lifecycle:extensions:${Versions.archComponents}"
     const val archComponentLifeCycleViewModel = "android.arch.lifecycle:viewmodel:${Versions.archComponents}"
     const val workerManager = "android.arch.work:work-runtime-ktx:${Versions.workManager}"
+    const val daggerCompiler                    = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+    const val dagger                            = "com.google.dagger:dagger:${Versions.dagger}"
+    const val assistedInjectAnnotations         = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedInject}"
+    const val assistedInjectProcessor           = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedInject}"
 }
 
 object DL4JDependencies {

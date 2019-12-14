@@ -2,8 +2,10 @@ package com.mccorby.openmined.worker.framework
 
 import com.mccorby.openmined.worker.domain.MLFramework
 import com.mccorby.openmined.worker.domain.SyftOperand
+import javax.inject.Inject
 
-class TensorFlowFramework : MLFramework {
+
+class TensorFlowFramework @Inject constructor(): MLFramework {
 
     override fun multiply(tensor1: SyftOperand.SyftTensor, tensor2: SyftOperand.SyftTensor): SyftOperand.SyftTensor {
         TODO("not implemented")
