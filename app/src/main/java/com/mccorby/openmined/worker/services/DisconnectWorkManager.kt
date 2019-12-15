@@ -13,6 +13,6 @@ class DisconnectWorkManager(
 
     override fun doWork(): Result {
         syftRepository.disconnect()
-        return Result.SUCCESS
+        return Result.success()
     }
 }

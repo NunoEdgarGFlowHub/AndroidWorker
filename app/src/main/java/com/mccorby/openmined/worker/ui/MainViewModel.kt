@@ -1,8 +1,8 @@
 package com.mccorby.openmined.worker.ui
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.mccorby.openmined.worker.services.DisconnectWorkManager

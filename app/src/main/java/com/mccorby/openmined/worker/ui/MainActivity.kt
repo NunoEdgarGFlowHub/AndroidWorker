@@ -1,9 +1,9 @@
 package com.mccorby.openmined.worker.ui
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.work.WorkManager
 import com.mccorby.openmined.worker.BuildConfig
 import com.mccorby.openmined.worker.OpenMinedApplication
@@ -43,8 +43,7 @@ class MainActivity : AppCompatActivity() {
     private fun injectDependencies() {
         val clientId = "Android-${System.currentTimeMillis()}"
         val webSocketUrl = BuildConfig.websocketUrl
-        val syftDataSource =
-            org.openmined.worker.datasource.SyftWebSocketDataSource(webSocketUrl, clientId)
+        val syftDataSource = SyftWebSocketDataSource(webSocketUrl, clientId)
         val syftRepository = SyftRepository(syftDataSource)
         val setObjectUseCase = SetObjectUseCase(syftRepository)
         val executeCommandUseCase = ExecuteCommandUseCase(syftRepository, mlFramework)
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 observeMessagesUseCase,
                 connectUseCase,
                 syftRepository,
-                WorkManager.getInstance()
+                WorkManager.getInstance(this)
             )
         ).get(MainViewModel::class.java)
 
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.syftTensorState.observe(this, Observer<SyftOperand.SyftTensor> {
 //            log_area.append(it!!.toINDArray().toString() + "\n")
 //        })
-        viewModel.viewState.observe(this, Observer {
+        viewModel.viewState.observe(this, Observer<String> {
             log_area.append(it + "\n")
         })
     }

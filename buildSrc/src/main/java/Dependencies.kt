@@ -16,7 +16,7 @@ object Versions {
     // Android libraries
     const val appCompat = "28.0.0"
     const val multiDex = "1.0.3"
-    const val workManager = "1.0.0-alpha10"
+    const val workManager = "2.2.0"
 
     // Arch components
     const val archComponents = "1.1.1"
@@ -67,11 +67,11 @@ object MainApplicationDependencies {
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
     const val archComponentLifeCycleExtensions = "android.arch.lifecycle:extensions:${Versions.archComponents}"
     const val archComponentLifeCycleViewModel = "android.arch.lifecycle:viewmodel:${Versions.archComponents}"
-    const val workerManager = "android.arch.work:work-runtime-ktx:${Versions.workManager}"
-    const val daggerCompiler                    = "com.google.dagger:dagger-compiler:${Versions.dagger}"
-    const val dagger                            = "com.google.dagger:dagger:${Versions.dagger}"
-    const val assistedInjectAnnotations         = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedInject}"
-    const val assistedInjectProcessor           = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedInject}"
+    const val workManager = "androidx.work:work-runtime:${Versions.workManager}"
+    const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+    const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
+    const val assistedInjectAnnotations = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedInject}"
+    const val assistedInjectProcessor = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedInject}"
 }
 
 object DL4JDependencies {

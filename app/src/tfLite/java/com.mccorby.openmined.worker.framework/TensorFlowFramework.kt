@@ -4,8 +4,7 @@ import org.openmined.worker.domain.MLFramework
 import org.openmined.worker.domain.SyftOperand
 import javax.inject.Inject
 
-
-class TensorFlowFramework @Inject constructor(): MLFramework {
+class TensorFlowFramework @Inject constructor() : MLFramework {
 
     override fun multiply(tensor1: SyftOperand.SyftTensor, tensor2: SyftOperand.SyftTensor): SyftOperand.SyftTensor {
         TODO("not implemented")
