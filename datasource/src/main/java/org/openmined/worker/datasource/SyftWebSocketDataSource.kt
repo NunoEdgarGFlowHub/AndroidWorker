@@ -1,10 +1,9 @@
-package com.mccorby.openmined.worker.datasource
+package org.openmined.worker.datasource
 
-import android.util.Log
-import com.mccorby.openmined.worker.datasource.mapper.CompressionConstants.NO_COMPRESSION
-import com.mccorby.openmined.worker.datasource.mapper.mapToByteArray
-import com.mccorby.openmined.worker.datasource.mapper.mapToString
-import com.mccorby.openmined.worker.datasource.mapper.mapToSyftMessage
+import org.openmined.worker.datasource.mapper.CompressionConstants.NO_COMPRESSION
+import org.openmined.worker.datasource.mapper.mapToByteArray
+import org.openmined.worker.datasource.mapper.mapToString
+import org.openmined.worker.datasource.mapper.mapToSyftMessage
 import io.reactivex.Flowable
 import io.reactivex.processors.PublishProcessor
 import io.socket.client.IO
@@ -35,12 +34,12 @@ class SyftWebSocketDataSource(private val webSocketUrl: String, private val clie
 
         socket.on(Socket.EVENT_CONNECT) { onConnect() }
         socket.on(Socket.EVENT_DISCONNECT) { onDisconnect() }
-        socket.on(Socket.EVENT_CONNECT_ERROR) { args -> Log.d(TAG, "EVENT Connect error ${logError(args)}") }
-        socket.on(Socket.EVENT_CONNECT_TIMEOUT) { Log.d(TAG, "EVENT Connect timeout error") }
-        socket.on(Socket.EVENT_RECONNECTING) { Log.d(TAG, "EVENT Reconnecting") }
-        socket.on(Socket.EVENT_ERROR) { args -> Log.d(TAG, "EVENT Error ${logError(args)}") }
-        socket.on(Socket.EVENT_PING) { Log.d(TAG, "EVENT Ping") }
-        socket.on(Socket.EVENT_PONG) { Log.d(TAG, "EVENT Pong") }
+        socket.on(Socket.EVENT_CONNECT_ERROR) { args -> print("EVENT Connect error ${logError(args)}") }
+        socket.on(Socket.EVENT_CONNECT_TIMEOUT) { print("EVENT Connect timeout error") }
+        socket.on(Socket.EVENT_RECONNECTING) { print("EVENT Reconnecting") }
+        socket.on(Socket.EVENT_ERROR) { args -> print("EVENT Error ${logError(args)}") }
+        socket.on(Socket.EVENT_PING) { print("EVENT Ping") }
+        socket.on(Socket.EVENT_PONG) { print("EVENT Pong") }
 
         socket.connect()
     }
@@ -56,14 +55,14 @@ class SyftWebSocketDataSource(private val webSocketUrl: String, private val clie
     override fun onStatusChanged(): Flowable<String> = statusPublishProcessor.onBackpressureBuffer()
 
     override fun disconnect() {
-        Log.d(TAG, "Disconnecting")
+        print("Disconnecting")
         socket.disconnect()
     }
 
     override fun sendOperationAck(syftMessage: SyftMessage) {
         // Simplify, Serialize, and Compress
         // TODO Add mapper from SyftMessage2ByteArray?.
-        Log.d(TAG, "Sending message $syftMessage")
+        print("Sending message $syftMessage")
         socket.emit(SEND_OPERATION_ACK, syftMessage.mapToString())
     }
 
@@ -76,23 +75,23 @@ class SyftWebSocketDataSource(private val webSocketUrl: String, private val clie
     override fun onNewMessage(): Flowable<SyftMessage> = publishProcessor.onBackpressureBuffer()
 
     private fun onConnect() {
-        Log.d(TAG, "Connection done")
+        print("Connection done")
         statusPublishProcessor.offer("Connected!")
         // Sending a dummy client id. This should be provided
         socket.emit(SEND_CLIENT_ID, clientId)
     }
 
     private fun onDisconnect() {
-        Log.d(TAG, "We're disconnected")
+        print("We're disconnected")
         statusPublishProcessor.offer("Disconnected!")
     }
 
     private fun onEventMessage(vararg args: Any) {
         // Decompress, Deserialise, Build object
-        Log.d(TAG, "Received message from the other side")
+        print("Received message from the other side")
         val syftMessage = ((args[0] as Array<Any>)[0] as ByteArray).mapToSyftMessage()
 
-        Log.d(TAG, "SyftTensor $syftMessage")
+        print("SyftTensor $syftMessage")
 
         publishProcessor.offer(syftMessage)
     }

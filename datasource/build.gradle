@@ -1,0 +1,47 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+buildscript {
+    ext.kotlin_version = '1.3.50'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // Data source dependencies
+    implementation (DataSourceDependencies.socketIO) {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+    implementation DataSourceDependencies.msgpack
+    implementation DataSourceDependencies.lz4
+    implementation DataSourceDependencies.okhttp
+
+    implementation MainApplicationDependencies.rxJava
+
+    // Testing
+    testImplementation UnitTestDependencies.junit
+    testImplementation UnitTestDependencies.mockk
+
+    implementation project(path: ':domain')
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

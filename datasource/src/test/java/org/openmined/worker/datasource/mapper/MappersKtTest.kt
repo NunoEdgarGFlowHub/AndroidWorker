@@ -1,4 +1,4 @@
-package com.mccorby.openmined.worker.datasource.mapper
+package org.openmined.worker.datasource.mapper
 
 import org.openmined.worker.domain.SyftMessage
 import org.openmined.worker.domain.SyftOperand

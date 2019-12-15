@@ -1,14 +1,14 @@
-package com.mccorby.openmined.worker.datasource.mapper
+package org.openmined.worker.datasource.mapper
 
-import com.mccorby.openmined.worker.datasource.mapper.CommandConstants.CMD_ADD
-import com.mccorby.openmined.worker.datasource.mapper.CommandConstants.CMD_MULTIPLY
-import com.mccorby.openmined.worker.datasource.mapper.CompressionConstants.COMPRESSION_ENABLED
-import com.mccorby.openmined.worker.datasource.mapper.OperationConstants.CMD
-import com.mccorby.openmined.worker.datasource.mapper.OperationConstants.FORCE_OBJ_DEL
-import com.mccorby.openmined.worker.datasource.mapper.OperationConstants.OBJ
-import com.mccorby.openmined.worker.datasource.mapper.OperationConstants.OBJ_REQ
-import com.mccorby.openmined.worker.datasource.mapper.TypeConstants.TYPE_TENSOR
-import com.mccorby.openmined.worker.datasource.mapper.TypeConstants.TYPE_TENSOR_POINTER
+import org.openmined.worker.datasource.mapper.CommandConstants.CMD_ADD
+import org.openmined.worker.datasource.mapper.CommandConstants.CMD_MULTIPLY
+import org.openmined.worker.datasource.mapper.CompressionConstants.COMPRESSION_ENABLED
+import org.openmined.worker.datasource.mapper.OperationConstants.CMD
+import org.openmined.worker.datasource.mapper.OperationConstants.FORCE_OBJ_DEL
+import org.openmined.worker.datasource.mapper.OperationConstants.OBJ
+import org.openmined.worker.datasource.mapper.OperationConstants.OBJ_REQ
+import org.openmined.worker.datasource.mapper.TypeConstants.TYPE_TENSOR
+import org.openmined.worker.datasource.mapper.TypeConstants.TYPE_TENSOR_POINTER
 import org.msgpack.core.MessagePack
 import org.msgpack.value.ArrayValue
 import org.msgpack.value.Value
@@ -99,7 +99,8 @@ fun ByteArray.mapToSyftMessage(): SyftMessage {
 
     val unpacker = MessagePack.newDefaultUnpacker(byteArray)
     val streamToDecode = unpacker.unpackValue()
-    val operationDto = unpackOperation(streamToDecode.asArrayValue())
+    val operationDto =
+        unpackOperation(streamToDecode.asArrayValue())
 
     return mapOperation(operationDto)
 }
@@ -128,7 +129,10 @@ private fun unpackObjectDelete(operands: Value): OperationDto {
     val operand = operands.asNumberValue().toLong()
     val pointerDto = OperandDto.TensorPointerDto()
     pointerDto.id = operand
-    return OperationDto(FORCE_OBJ_DEL, value = listOf((pointerDto)))
+    return OperationDto(
+        FORCE_OBJ_DEL,
+        value = listOf((pointerDto))
+    )
 }
 
 fun unpackObjectRequest(operands: Value): OperationDto {
@@ -136,7 +140,10 @@ fun unpackObjectRequest(operands: Value): OperationDto {
     val operand = operands.asArrayValue()[1].asNumberValue().toLong()
     val pointerDto = OperandDto.TensorPointerDto()
     pointerDto.id = operand
-    return OperationDto(OBJ_REQ, value = listOf((pointerDto)))
+    return OperationDto(
+        OBJ_REQ,
+        value = listOf((pointerDto))
+    )
 }
 
 fun unpackCommand(operands: Value): OperationDto {
@@ -150,14 +157,16 @@ fun unpackCommand(operands: Value): OperationDto {
 
     return when (val command = unpackCommand(operation)) { // [18,["__add__"]]
         CMD_ADD -> {
-            val operationDto = OperationDto(op = CMD, command = command)
+            val operationDto =
+                OperationDto(op = CMD, command = command)
             val tensorList = mutableListOf<OperandDto>()
             val op1 = operation[1].asArrayValue()
             val op2 = operation[2].asArrayValue()[1]
             tensorList.add(unpackOperandByType(op1))
 
             op2.asArrayValue().map {
-                val operand = unpackOperandByType(it.asArrayValue())
+                val operand =
+                    unpackOperandByType(it.asArrayValue())
                 tensorList.add(operand)
             }
 
@@ -166,14 +175,16 @@ fun unpackCommand(operands: Value): OperationDto {
             operationDto
         }
         CMD_MULTIPLY -> {
-            val operationDto = OperationDto(op = CMD, command = command)
+            val operationDto =
+                OperationDto(op = CMD, command = command)
             val tensorList = mutableListOf<OperandDto>()
             val op1 = operation[1].asArrayValue()
             val op2 = operation[2].asArrayValue()[1]
             tensorList.add(unpackOperandByType(op1))
 
             op2.asArrayValue().map {
-                val operand = unpackOperandByType(it.asArrayValue())
+                val operand =
+                    unpackOperandByType(it.asArrayValue())
                 tensorList.add(operand)
             }
 
@@ -235,7 +246,8 @@ fun decompress(stream: ByteArray): ByteArray {
 private fun mapOperation(operationDto: OperationDto): SyftMessage {
     return when (operationDto.op) {
         OBJ -> {
-            val operand = mapOperandToDomain(operationDto.value.first())
+            val operand =
+                mapOperandToDomain(operationDto.value.first())
             SyftMessage.SetObject(operand)
         }
         CMD -> {

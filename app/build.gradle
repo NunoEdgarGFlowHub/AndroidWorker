@@ -96,15 +96,6 @@ dependencies {
     implementation MainApplicationDependencies.assistedInjectAnnotations
     kapt MainApplicationDependencies.assistedInjectProcessor
 
-    // Data source dependencies
-    implementation (DataSourceDependencies.socketIO) {
-        // excluding org.json which is provided by Android
-        exclude group: 'org.json', module: 'json'
-    }
-    implementation DataSourceDependencies.msgpack
-    implementation DataSourceDependencies.lz4
-    implementation DataSourceDependencies.okhttp
-
     // Tools
     implementation ToolsDependencies.npy
 
@@ -148,6 +139,7 @@ dependencies {
     }
 
     implementation project(path: ':domain')
+    implementation project(path: ':datasource')
 
     // Testing
     testImplementation UnitTestDependencies.junit

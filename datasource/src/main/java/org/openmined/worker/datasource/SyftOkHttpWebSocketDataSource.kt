@@ -1,8 +1,7 @@
-package com.mccorby.openmined.worker.datasource
+package org.openmined.worker.datasource
 
-import android.util.Log
-import com.mccorby.openmined.worker.datasource.mapper.mapToString
-import com.mccorby.openmined.worker.datasource.mapper.mapToSyftMessage
+import org.openmined.worker.datasource.mapper.mapToString
+import org.openmined.worker.datasource.mapper.mapToSyftMessage
 import io.reactivex.Flowable
 import io.reactivex.processors.PublishProcessor
 import okhttp3.OkHttpClient
@@ -38,16 +37,11 @@ class SyftOkHttpWebSocketDataSource(private val webSocketUrl: String) : SyftData
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                Log.d(TAG, "Received message from the other side as String")
                 val syftMessage = text.toByteArray().mapToSyftMessage()
-
-                Log.d(TAG, "SyftTensor $syftMessage")
-
                 publishProcessor.offer(syftMessage)
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-                Log.d(TAG, "Received message from the other side as bytes")
                 onMessage(webSocket, bytes.hex())
             }
         }

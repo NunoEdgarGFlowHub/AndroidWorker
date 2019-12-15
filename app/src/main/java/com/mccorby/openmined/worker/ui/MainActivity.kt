@@ -8,12 +8,17 @@ import androidx.work.WorkManager
 import com.mccorby.openmined.worker.BuildConfig
 import com.mccorby.openmined.worker.OpenMinedApplication
 import com.mccorby.openmined.worker.R
-import com.mccorby.openmined.worker.datasource.SyftWebSocketDataSource
+import org.openmined.worker.datasource.SyftWebSocketDataSource
 import kotlinx.android.synthetic.main.activity_main.*
 import org.openmined.worker.domain.MLFramework
 import org.openmined.worker.domain.SyftRepository
 import org.openmined.worker.domain.SyftResult
-import org.openmined.worker.domain.usecase.*
+import org.openmined.worker.domain.usecase.ConnectUseCase
+import org.openmined.worker.domain.usecase.DeleteObjectUseCase
+import org.openmined.worker.domain.usecase.ExecuteCommandUseCase
+import org.openmined.worker.domain.usecase.GetObjectUseCase
+import org.openmined.worker.domain.usecase.ObserveMessagesUseCase
+import org.openmined.worker.domain.usecase.SetObjectUseCase
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +43,8 @@ class MainActivity : AppCompatActivity() {
     private fun injectDependencies() {
         val clientId = "Android-${System.currentTimeMillis()}"
         val webSocketUrl = BuildConfig.websocketUrl
-        val syftDataSource = SyftWebSocketDataSource(webSocketUrl, clientId)
+        val syftDataSource =
+            org.openmined.worker.datasource.SyftWebSocketDataSource(webSocketUrl, clientId)
         val syftRepository = SyftRepository(syftDataSource)
         val setObjectUseCase = SetObjectUseCase(syftRepository)
         val executeCommandUseCase = ExecuteCommandUseCase(syftRepository, mlFramework)
