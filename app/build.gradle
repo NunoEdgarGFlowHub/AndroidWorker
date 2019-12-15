@@ -147,6 +147,8 @@ dependencies {
         exclude module: 'jcip-annotations'
     }
 
+    implementation project(path: ':domain')
+
     // Testing
     testImplementation UnitTestDependencies.junit
     testImplementation UnitTestDependencies.mockk

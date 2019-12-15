@@ -9,9 +9,6 @@ import com.mccorby.openmined.worker.datasource.mapper.OperationConstants.OBJ
 import com.mccorby.openmined.worker.datasource.mapper.OperationConstants.OBJ_REQ
 import com.mccorby.openmined.worker.datasource.mapper.TypeConstants.TYPE_TENSOR
 import com.mccorby.openmined.worker.datasource.mapper.TypeConstants.TYPE_TENSOR_POINTER
-import com.mccorby.openmined.worker.domain.SyftCommand
-import com.mccorby.openmined.worker.domain.SyftMessage
-import com.mccorby.openmined.worker.domain.SyftOperand
 import org.msgpack.core.MessagePack
 import org.msgpack.value.ArrayValue
 import org.msgpack.value.Value
@@ -19,6 +16,9 @@ import org.msgpack.value.impl.ImmutableArrayValueImpl
 import org.msgpack.value.impl.ImmutableLongValueImpl
 import org.msgpack.value.impl.ImmutableNilValueImpl
 import org.msgpack.value.impl.ImmutableStringValueImpl
+import org.openmined.worker.domain.SyftCommand
+import org.openmined.worker.domain.SyftMessage
+import org.openmined.worker.domain.SyftOperand
 
 private const val TAG = "MapperDS"
 

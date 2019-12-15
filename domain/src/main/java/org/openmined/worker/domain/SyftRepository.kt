@@ -1,4 +1,4 @@
-package com.mccorby.openmined.worker.domain
+package org.openmined.worker.domain
 
 import io.reactivex.Flowable
 import java.lang.IllegalArgumentException

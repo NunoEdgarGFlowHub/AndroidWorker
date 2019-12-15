@@ -1,9 +1,9 @@
 package com.mccorby.openmined.worker.ui
 
 import androidx.work.WorkManager
-import com.mccorby.openmined.worker.domain.SyftRepository
-import com.mccorby.openmined.worker.domain.usecase.ConnectUseCase
-import com.mccorby.openmined.worker.domain.usecase.ObserveMessagesUseCase
+import org.openmined.worker.domain.SyftRepository
+import org.openmined.worker.domain.usecase.ConnectUseCase
+import org.openmined.worker.domain.usecase.ObserveMessagesUseCase
 import io.mockk.mockk
 import org.junit.Before
 

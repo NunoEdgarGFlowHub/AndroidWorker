@@ -3,8 +3,6 @@ package com.mccorby.openmined.worker.datasource
 import android.util.Log
 import com.mccorby.openmined.worker.datasource.mapper.mapToString
 import com.mccorby.openmined.worker.datasource.mapper.mapToSyftMessage
-import com.mccorby.openmined.worker.domain.SyftDataSource
-import com.mccorby.openmined.worker.domain.SyftMessage
 import io.reactivex.Flowable
 import io.reactivex.processors.PublishProcessor
 import okhttp3.OkHttpClient
@@ -13,6 +11,8 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
+import org.openmined.worker.domain.SyftDataSource
+import org.openmined.worker.domain.SyftMessage
 
 private const val TAG = "SyftOkHttpWebSocketDS"
 

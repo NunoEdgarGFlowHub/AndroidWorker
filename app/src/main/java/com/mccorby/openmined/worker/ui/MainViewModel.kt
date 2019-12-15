@@ -5,16 +5,16 @@ import android.arch.lifecycle.ViewModel
 import android.util.Log
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.mccorby.openmined.worker.domain.SyftCommand
-import com.mccorby.openmined.worker.domain.SyftOperand
-import com.mccorby.openmined.worker.domain.SyftRepository
-import com.mccorby.openmined.worker.domain.SyftResult
-import com.mccorby.openmined.worker.domain.usecase.ConnectUseCase
-import com.mccorby.openmined.worker.domain.usecase.ObserveMessagesUseCase
 import com.mccorby.openmined.worker.services.DisconnectWorkManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import org.openmined.worker.domain.SyftCommand
+import org.openmined.worker.domain.SyftOperand
+import org.openmined.worker.domain.SyftRepository
+import org.openmined.worker.domain.SyftResult
+import org.openmined.worker.domain.usecase.ConnectUseCase
+import org.openmined.worker.domain.usecase.ObserveMessagesUseCase
 
 class MainViewModel(
     private val observeMessagesUseCase: ObserveMessagesUseCase,

@@ -1,6 +1,6 @@
 package com.mccorby.openmined.worker.di
 
-import com.mccorby.openmined.worker.framework.di.MLFrameworkComponent
+import com.mccorby.openmined.worker.mlframework.di.MLFrameworkComponent
 import com.mccorby.openmined.worker.ui.MainActivity
 import dagger.Component
 

@@ -1,4 +1,4 @@
-package com.mccorby.openmined.worker.domain
+package org.openmined.worker.domain
 
 const val NO_ID: SyftTensorId = -1
 

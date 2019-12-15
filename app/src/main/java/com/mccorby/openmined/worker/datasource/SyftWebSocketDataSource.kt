@@ -5,12 +5,12 @@ import com.mccorby.openmined.worker.datasource.mapper.CompressionConstants.NO_CO
 import com.mccorby.openmined.worker.datasource.mapper.mapToByteArray
 import com.mccorby.openmined.worker.datasource.mapper.mapToString
 import com.mccorby.openmined.worker.datasource.mapper.mapToSyftMessage
-import com.mccorby.openmined.worker.domain.SyftDataSource
-import com.mccorby.openmined.worker.domain.SyftMessage
 import io.reactivex.Flowable
 import io.reactivex.processors.PublishProcessor
 import io.socket.client.IO
 import io.socket.client.Socket
+import org.openmined.worker.domain.SyftDataSource
+import org.openmined.worker.domain.SyftMessage
 
 // This client finished the operation and sends an ACK to the server
 private const val SEND_OPERATION_ACK = "client_ack"
@@ -20,7 +20,8 @@ private const val SEND_CLIENT_ID = "client_id"
 
 private const val TAG = "SyftWebSocketDataSource"
 
-class SyftWebSocketDataSource(private val webSocketUrl: String, private val clientId: String) : SyftDataSource {
+class SyftWebSocketDataSource(private val webSocketUrl: String, private val clientId: String) :
+    SyftDataSource {
     private lateinit var socket: Socket
     private val publishProcessor: PublishProcessor<SyftMessage> = PublishProcessor.create<SyftMessage>()
     private val statusPublishProcessor: PublishProcessor<String> = PublishProcessor.create<String>()

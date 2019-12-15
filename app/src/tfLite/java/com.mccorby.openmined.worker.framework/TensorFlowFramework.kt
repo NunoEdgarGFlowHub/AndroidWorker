@@ -1,7 +1,7 @@
 package com.mccorby.openmined.worker.framework
 
-import com.mccorby.openmined.worker.domain.MLFramework
-import com.mccorby.openmined.worker.domain.SyftOperand
+import org.openmined.worker.domain.MLFramework
+import org.openmined.worker.domain.SyftOperand
 import javax.inject.Inject
 
 

@@ -1,6 +1,6 @@
 package com.mccorby.openmined.worker.framework.di
 
-import com.mccorby.openmined.worker.domain.MLFramework
+import org.openmined.worker.domain.MLFramework
 import com.mccorby.openmined.worker.framework.TensorFlowFramework
 import dagger.Binds
 import dagger.Module

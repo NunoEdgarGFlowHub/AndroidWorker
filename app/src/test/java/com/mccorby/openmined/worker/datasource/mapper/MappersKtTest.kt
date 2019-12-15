@@ -1,7 +1,7 @@
 package com.mccorby.openmined.worker.datasource.mapper
 
-import com.mccorby.openmined.worker.domain.SyftMessage
-import com.mccorby.openmined.worker.domain.SyftOperand
+import org.openmined.worker.domain.SyftMessage
+import org.openmined.worker.domain.SyftOperand
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

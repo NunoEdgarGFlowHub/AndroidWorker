@@ -1,11 +1,11 @@
 package com.mccorby.openmined.worker.framework
 
-import com.mccorby.openmined.worker.domain.NO_ID
-import com.mccorby.openmined.worker.domain.MLFramework
-import com.mccorby.openmined.worker.domain.SyftOperand
 import org.jetbrains.bio.npy.NpyFile
 import org.nd4j.linalg.api.ndarray.INDArray
 import org.nd4j.linalg.factory.Nd4j
+import org.openmined.worker.domain.MLFramework
+import org.openmined.worker.domain.NO_ID
+import org.openmined.worker.domain.SyftOperand
 import java.nio.file.Files
 import javax.inject.Inject
 

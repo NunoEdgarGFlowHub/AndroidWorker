@@ -9,11 +9,11 @@ import com.mccorby.openmined.worker.BuildConfig
 import com.mccorby.openmined.worker.OpenMinedApplication
 import com.mccorby.openmined.worker.R
 import com.mccorby.openmined.worker.datasource.SyftWebSocketDataSource
-import com.mccorby.openmined.worker.domain.MLFramework
-import com.mccorby.openmined.worker.domain.SyftRepository
-import com.mccorby.openmined.worker.domain.SyftResult
-import com.mccorby.openmined.worker.domain.usecase.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.openmined.worker.domain.MLFramework
+import org.openmined.worker.domain.SyftRepository
+import org.openmined.worker.domain.SyftResult
+import org.openmined.worker.domain.usecase.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {

@@ -3,7 +3,7 @@ package com.mccorby.openmined.worker
 import com.mccorby.openmined.worker.di.ApplicationComponent
 import android.app.Application
 import com.mccorby.openmined.worker.di.DaggerApplicationComponent
-import com.mccorby.openmined.worker.framework.di.DaggerMLFrameworkComponent
+import com.mccorby.openmined.worker.mlframework.di.DaggerMLFrameworkComponent
 
 class OpenMinedApplication : Application() {
 

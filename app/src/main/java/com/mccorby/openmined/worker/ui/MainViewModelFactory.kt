@@ -3,9 +3,9 @@ package com.mccorby.openmined.worker.ui
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import androidx.work.WorkManager
-import com.mccorby.openmined.worker.domain.SyftRepository
-import com.mccorby.openmined.worker.domain.usecase.ConnectUseCase
-import com.mccorby.openmined.worker.domain.usecase.ObserveMessagesUseCase
+import org.openmined.worker.domain.SyftRepository
+import org.openmined.worker.domain.usecase.ConnectUseCase
+import org.openmined.worker.domain.usecase.ObserveMessagesUseCase
 
 class MainViewModelFactory(
     private val observeMessagesUseCase: ObserveMessagesUseCase,

@@ -1,9 +1,9 @@
-package com.mccorby.openmined.worker.domain.usecase
+package org.openmined.worker.domain.usecase
 
-import com.mccorby.openmined.worker.domain.SyftMessage
-import com.mccorby.openmined.worker.domain.SyftOperand
-import com.mccorby.openmined.worker.domain.SyftRepository
-import com.mccorby.openmined.worker.domain.SyftResult
+import org.openmined.worker.domain.SyftMessage
+import org.openmined.worker.domain.SyftOperand
+import org.openmined.worker.domain.SyftRepository
+import org.openmined.worker.domain.SyftResult
 
 class SetObjectUseCase(private val syftRepository: SyftRepository) {
 
